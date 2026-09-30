@@ -15,9 +15,14 @@ class Settings:
 
 def load_settings(env_path=None):
     path = Path(env_path) if env_path else ROOT / '.env'
-    values = dotenv_values(path) if path.is_file() else {}
+    values = dotenv_values(path, encoding="utf-8-sig") if path.is_file() else {}
     def read(name, default=''):
-        return str(os.environ.get(name, values.get(name) or default)).strip()
+        # 수업에서는 학생이 수정한 .env를 먼저 사용합니다.
+        # 빈 값은 건너뛰고 환경변수, 기본값 순으로 확인합니다.
+        for value in (values.get(name), os.environ.get(name), default):
+            if value is not None and str(value).strip():
+                return str(value).strip()
+        return ""
     key = read('OPENAI_API_KEY')
     if not key or key.lower() in {'your-api-key', 'your_openai_api_key', 'sk-your-key-here'}:
         raise ValueError(
