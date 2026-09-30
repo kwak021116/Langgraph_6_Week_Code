@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.langgraph_api/
+dist/
+*.zip
+
+# 배포 패키징 파일은 저장소에 포함하지 않습니다.
+package_for_distribution.py

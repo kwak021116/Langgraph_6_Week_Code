@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "module1-class-labs"
+version = "1.0.0"
+requires-python = ">=3.11"
+dependencies = ["langgraph", "langchain-openai", "python-dotenv"]
+
+[tool.setuptools.packages.find]
+include = ["lab*"]
